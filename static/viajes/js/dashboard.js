@@ -14,18 +14,32 @@
 (function () {
     "use strict";
 
-    const COLOR_POR_TIPO = {
-        "Turbo": "#2a78d6",
-        "Sencillo": "#eb6834",
-        "Eléctrico": "#1baf7a",
-    };
-    const COLOR_MUTED = "#898781";
-    const COLOR_GRID = "#e1e0d9";
-    const COLOR_TEXTO = "#52514e";
+    function cssVar(nombre, fallback) {
+        const valor = getComputedStyle(document.documentElement).getPropertyValue(nombre).trim();
+        return valor || fallback;
+    }
+
+    function coloresTema() {
+        const oscuro = document.documentElement.getAttribute("data-tema") === "oscuro";
+        return {
+            porTipo: {
+                Turbo: oscuro ? "#A8B4C4" : "#2F374A",
+                Sencillo: "#F78C2D",
+                Eléctrico: oscuro ? "#4CAF75" : "#2E7D4F",
+            },
+            muted: cssVar("--chart-texto", "#58615F"),
+            grid: cssVar("--chart-grid", "#E2E5E7"),
+            superficie: cssVar("--chart-superficie", "#FFFFFF"),
+            tooltip: oscuro ? "#0F131A" : "#2F374A",
+            barra: "#F78C2D",
+        };
+    }
+
+    let colores = coloresTema();
 
     Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', sans-serif";
-    Chart.defaults.color = COLOR_TEXTO;
-    Chart.defaults.plugins.tooltip.backgroundColor = "#0b0b0b";
+    Chart.defaults.color = colores.muted;
+    Chart.defaults.plugins.tooltip.backgroundColor = colores.tooltip;
     Chart.defaults.plugins.tooltip.padding = 10;
     Chart.defaults.plugins.tooltip.cornerRadius = 6;
 
@@ -48,7 +62,7 @@
             datasets: [{
                 label: "Vehículos",
                 data: [],
-                backgroundColor: "#2a78d6",
+                backgroundColor: colores.barra,
                 borderRadius: 4,
                 maxBarThickness: 28,
             }],
@@ -66,11 +80,11 @@
                 },
             },
             scales: {
-                x: { grid: { display: false }, ticks: { color: COLOR_MUTED, maxRotation: 0, autoSkip: true } },
+                x: { grid: { display: false }, ticks: { color: colores.muted, maxRotation: 0, autoSkip: true } },
                 y: {
                     beginAtZero: true,
-                    ticks: { precision: 0, color: COLOR_MUTED },
-                    grid: { color: COLOR_GRID },
+                    ticks: { precision: 0, color: colores.muted },
+                    grid: { color: colores.grid },
                 },
             },
         },
@@ -80,13 +94,13 @@
     const ctxDistribucion = document.getElementById("grafico-distribucion-tipo").getContext("2d");
     const graficoDistribucion = new Chart(ctxDistribucion, {
         type: "doughnut",
-        data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderWidth: 2, borderColor: "#fcfcfb" }] },
+        data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderWidth: 2, borderColor: colores.superficie }] },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             cutout: "62%",
             plugins: {
-                legend: { position: "bottom", labels: { boxWidth: 12, padding: 14 } },
+                legend: { position: "bottom", labels: { boxWidth: 12, padding: 14, color: colores.muted } },
                 tooltip: {
                     callbacks: {
                         label: (item) => `${item.label}: ${item.formattedValue} registro(s)`,
@@ -116,13 +130,51 @@
             scales: {
                 x: {
                     beginAtZero: true,
-                    ticks: { color: COLOR_MUTED, callback: (valor) => formateadorMoneda.format(valor) },
-                    grid: { color: COLOR_GRID },
+                    ticks: { color: colores.muted, callback: (valor) => formateadorMoneda.format(valor) },
+                    grid: { color: colores.grid },
                 },
-                y: { grid: { display: false }, ticks: { color: COLOR_MUTED } },
+                y: { grid: { display: false }, ticks: { color: colores.muted } },
             },
         },
     });
+
+    let ultimoDistribucion = [];
+    let ultimoFacturacion = [];
+
+    function aplicarColoresGraficos() {
+        colores = coloresTema();
+        Chart.defaults.color = colores.muted;
+        Chart.defaults.plugins.tooltip.backgroundColor = colores.tooltip;
+
+        graficoPorDia.data.datasets[0].backgroundColor = colores.barra;
+        graficoPorDia.options.scales.x.ticks.color = colores.muted;
+        graficoPorDia.options.scales.y.ticks.color = colores.muted;
+        graficoPorDia.options.scales.y.grid.color = colores.grid;
+
+        graficoDistribucion.data.datasets[0].borderColor = colores.superficie;
+        graficoDistribucion.options.plugins.legend.labels.color = colores.muted;
+        if (ultimoDistribucion.length) {
+            graficoDistribucion.data.datasets[0].backgroundColor = ultimoDistribucion.map(
+                (d) => colores.porTipo[d.tipo] || colores.muted
+            );
+        }
+
+        graficoFacturacion.options.scales.x.ticks.color = colores.muted;
+        graficoFacturacion.options.scales.x.grid.color = colores.grid;
+        graficoFacturacion.options.scales.y.ticks.color = colores.muted;
+        if (ultimoFacturacion.length) {
+            graficoFacturacion.data.datasets[0].backgroundColor = ultimoFacturacion.map(
+                (f) => colores.porTipo[f.tipo] || colores.muted
+            );
+        }
+
+        graficoPorDia.update("none");
+        graficoDistribucion.update("none");
+        graficoFacturacion.update("none");
+        if (ultimoDistribucion.length) {
+            renderizarTablaResumen(ultimoDistribucion, ultimoFacturacion);
+        }
+    }
 
     function renderizarKpis(indicadores) {
         document.getElementById("kpi-registros").textContent = formateadorNumero.format(indicadores.total_registros);
@@ -139,19 +191,21 @@
     }
 
     function renderizarDistribucion(distribucion) {
+        ultimoDistribucion = distribucion;
         graficoDistribucion.data.labels = distribucion.map((d) => d.tipo);
         graficoDistribucion.data.datasets[0].data = distribucion.map((d) => d.cantidad);
         graficoDistribucion.data.datasets[0].backgroundColor = distribucion.map(
-            (d) => COLOR_POR_TIPO[d.tipo] || COLOR_MUTED
+            (d) => colores.porTipo[d.tipo] || colores.muted
         );
         graficoDistribucion.update();
     }
 
     function renderizarFacturacionTipo(facturacionPorTipo) {
+        ultimoFacturacion = facturacionPorTipo;
         graficoFacturacion.data.labels = facturacionPorTipo.map((f) => f.tipo);
         graficoFacturacion.data.datasets[0].data = facturacionPorTipo.map((f) => f.total);
         graficoFacturacion.data.datasets[0].backgroundColor = facturacionPorTipo.map(
-            (f) => COLOR_POR_TIPO[f.tipo] || COLOR_MUTED
+            (f) => colores.porTipo[f.tipo] || colores.muted
         );
         graficoFacturacion.update();
     }
@@ -163,13 +217,15 @@
             cuerpo.innerHTML = '<tr><td colspan="3" class="fila-vacia">Sin datos para los filtros actuales.</td></tr>';
             return;
         }
-        cuerpo.innerHTML = distribucion.map((d) => `
+        cuerpo.innerHTML = distribucion.map((d) => {
+            const color = colores.porTipo[d.tipo] || colores.muted;
+            return `
             <tr>
-                <td><span class="etiqueta-tipo" style="background:${COLOR_POR_TIPO[d.tipo]}22;color:${COLOR_POR_TIPO[d.tipo]}">${d.tipo}</span></td>
+                <td><span class="etiqueta-tipo" style="background:${color}22;color:${color}">${d.tipo}</span></td>
                 <td class="celda-numero">${formateadorNumero.format(d.cantidad)}</td>
                 <td class="celda-numero">${formateadorMoneda.format(facturacionPorNombre[d.tipo] || 0)}</td>
-            </tr>
-        `).join("");
+            </tr>`;
+        }).join("");
     }
 
     function renderizarTodo(datos) {
@@ -179,6 +235,8 @@
         renderizarFacturacionTipo(datos.facturacion_por_tipo);
         renderizarTablaResumen(datos.distribucion_tipo, datos.facturacion_por_tipo);
     }
+
+    window.addEventListener("tema-cambiado", aplicarColoresGraficos);
 
     // Primer pintado: usa los datos que ya vinieron con la página (sin round-trip).
     renderizarTodo(window.DATOS_DASHBOARD_INICIALES);

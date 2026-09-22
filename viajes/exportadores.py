@@ -69,7 +69,7 @@ def exportar_excel(queryset) -> HttpResponse:
     ws = wb.active
     ws.title = "Viajes"
 
-    encabezado_relleno = PatternFill(start_color="1F3A5F", end_color="1F3A5F", fill_type="solid")
+    encabezado_relleno = PatternFill(start_color="F78C2D", end_color="F78C2D", fill_type="solid")
     encabezado_fuente = Font(color="FFFFFF", bold=True)
 
     for col_idx, (_campo, etiqueta) in enumerate(COLUMNAS, start=1):
