@@ -1,0 +1,71 @@
+﻿Código,Placa,Tipo de vehículo,Cliente,Fecha inicio,Fecha fin,N° entregas,Facturación,Validado,Observación
+VJ-00059,WEG462,Eléctrico,Palacio PLC,2026-09-22,2026-09-28,12,956335.18,Sí,
+VJ-00027,EAY526,Turbo,Guerrero-Mena,2026-09-21,,17,3874488.4,No,
+VJ-00024,WXV014,Eléctrico,Meza-Orozco,2026-09-21,2026-09-22,37,3094749.08,Sí,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00010,YDV076,Eléctrico,Meza-Orozco,2026-09-21,2026-09-26,22,2191719.0,Sí,Entrega sin novedad.
+VJ-00007,TSL994,Eléctrico,Uribe and Sons,2026-09-20,2026-09-24,33,3031526.57,No,Cliente solicitó reprogramación de una entrega.
+VJ-00047,CXY523,Sencillo,Ortega-Torres,2026-09-18,2026-09-24,23,2799102.74,Sí,Entrega sin novedad.
+VJ-00014,GBF091,Turbo,Uribe and Sons,2026-09-15,2026-09-18,2,525008.6,No,Entrega sin novedad.
+VJ-00054,TNF073,Eléctrico,González-Muñoz,2026-09-14,2026-09-15,18,1695729.58,No,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00023,MGD380,Eléctrico,Arias-Arango,2026-09-14,2026-09-20,34,2488172.51,Sí,
+VJ-00053,FSW390,Turbo,Uribe and Sons,2026-09-12,2026-09-16,8,1628270.16,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00021,RRN083,Turbo,"Ramos, Soto and Castellanos",2026-09-12,2026-09-18,18,3629316.12,Sí,
+VJ-00067,LTM708,Sencillo,Rodríguez-Garzón,2026-09-09,2026-09-09,19,2955673.13,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00030,HRC358,Eléctrico,Arias-Arango,2026-09-09,,27,2735865.52,Sí,
+VJ-00012,UAJ265,Turbo,"Ríos, Sánchez and Forero",2026-09-08,,35,8022069.93,Sí,
+VJ-00069,YKC841,Turbo,González-Muñoz,2026-09-06,,32,6520210.59,Sí,Entrega sin novedad.
+VJ-00015,EHS185,Sencillo,González-Muñoz,2026-09-06,2026-09-06,33,4314618.0,No,Cliente solicitó reprogramación de una entrega.
+VJ-00063,MCE050,Eléctrico,Murcia Group,2026-09-04,2026-09-04,20,1506711.09,No,
+VJ-00032,DYX109,Sencillo,González-Muñoz,2026-09-04,2026-09-06,18,2775445.64,Sí,Pendiente confirmación de recibido por parte del cliente.
+VJ-00009,HBS272,Eléctrico,Rodríguez-Garzón,2026-09-03,,13,1293169.28,Sí,Retraso menor por tráfico en la vía principal.
+VJ-00058,SXF229,Eléctrico,González-Muñoz,2026-09-02,2026-09-03,36,3306334.72,No,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00028,PNE390,Eléctrico,Vargas-Arango,2026-09-01,,2,150809.61,No,
+VJ-00052,TDS243,Sencillo,Montoya Inc,2026-08-30,2026-09-03,27,3872094.53,No,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00041,TUC873,Turbo,García and Sons,2026-08-30,2026-09-03,10,1954736.59,No,
+VJ-00003,DHX306,Sencillo,Ortega-Torres,2026-08-28,2026-08-28,14,1544994.76,Sí,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00050,ECU082,Turbo,Rodríguez-Garzón,2026-08-25,2026-08-31,35,8683185.93,Sí,
+VJ-00029,VSN506,Turbo,"Hernández, López and Hernández",2026-08-24,2026-08-28,37,9413035.84,Sí,Entrega sin novedad.
+VJ-00034,WUZ880,Turbo,González-Muñoz,2026-08-23,2026-08-25,5,1078694.39,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00056,HBB710,Sencillo,Ortega-Torres,2026-08-19,2026-08-20,17,2050821.98,No,Entrega sin novedad.
+VJ-00042,UBT901,Sencillo,Arias-Arango,2026-08-19,2026-08-19,18,2613218.92,No,
+VJ-00066,SKC438,Eléctrico,Murcia Group,2026-08-17,2026-08-17,39,3389962.97,No,Retraso menor por tráfico en la vía principal.
+VJ-00045,DMG887,Turbo,Arias-Arango,2026-08-17,2026-08-22,35,8274324.54,Sí,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00004,BVX491,Turbo,Rodríguez-Garzón,2026-08-10,2026-08-15,19,3768729.37,No,
+VJ-00060,KRE119,Turbo,Arias-Arango,2026-08-08,2026-08-12,34,8423365.98,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00062,FJA865,Turbo,Rodríguez-Garzón,2026-08-07,2026-08-11,28,5505027.45,Sí,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00020,VSY124,Turbo,Vargas-Arango,2026-08-07,2026-08-11,18,3495520.59,No,Pendiente confirmación de recibido por parte del cliente.
+VJ-00018,YGT516,Eléctrico,Uribe and Sons,2026-08-04,2026-08-07,7,616623.86,Sí,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00002,QCN894,Turbo,"Ramos, Soto and Castellanos",2026-08-03,2026-08-05,9,1890570.24,Sí,Pendiente confirmación de recibido por parte del cliente.
+VJ-00001,FMY462,Turbo,"Ramos, Soto and Castellanos",2026-08-03,2026-08-04,11,2480039.06,No,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00016,FRC946,Turbo,Montoya Inc,2026-07-31,2026-08-02,17,4163861.75,No,Entrega sin novedad.
+VJ-00064,FYT742,Turbo,Arias-Arango,2026-07-30,,34,6354039.58,Sí,Entrega sin novedad.
+VJ-00044,PGL215,Eléctrico,"Ríos, Sánchez and Forero",2026-07-29,2026-07-30,6,599633.77,No,
+VJ-00061,LVQ955,Eléctrico,Arias-Arango,2026-07-28,2026-08-02,6,617331.07,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00070,PJN580,Sencillo,Torres-Morales,2026-07-25,,40,3607059.58,No,Retraso menor por tráfico en la vía principal.
+VJ-00026,CJG372,Turbo,"Ramos, Soto and Castellanos",2026-07-23,2026-07-25,1,208414.46,Sí,Entrega sin novedad.
+VJ-00040,BQQ283,Turbo,"Ríos, Sánchez and Forero",2026-07-22,2026-07-25,33,7077361.25,No,Pendiente confirmación de recibido por parte del cliente.
+VJ-00008,YJX958,Eléctrico,García and Sons,2026-07-22,2026-07-22,23,1993401.47,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00049,FBH201,Sencillo,Benítez-Londoño,2026-07-18,2026-07-20,10,1250283.52,No,Entrega sin novedad.
+VJ-00038,ZSD781,Turbo,Guerrero-Mena,2026-07-18,2026-07-20,23,5038832.58,No,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00068,WDE137,Turbo,Benítez-Londoño,2026-07-16,2026-07-20,32,6395123.48,No,
+VJ-00031,FBS489,Sencillo,Torres-Morales,2026-07-12,2026-07-13,40,3907094.82,No,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00017,QBJ099,Eléctrico,Arias-Arango,2026-07-12,,4,418644.97,No,Pendiente confirmación de recibido por parte del cliente.
+VJ-00037,NXL877,Turbo,González-Muñoz,2026-07-10,2026-07-13,26,5131048.71,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00022,DDA806,Turbo,Benítez-Londoño,2026-07-08,2026-07-13,30,6201820.05,No,
+VJ-00048,VDL173,Eléctrico,Montoya Inc,2026-07-06,,8,714628.61,No,
+VJ-00019,UKB314,Eléctrico,Rodríguez-Garzón,2026-07-03,2026-07-08,38,3282917.29,Sí,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00013,FAU877,Sencillo,Arias-Arango,2026-06-30,2026-07-02,32,4077301.03,No,Cliente solicitó reprogramación de una entrega.
+VJ-00005,PGE025,Sencillo,Torres-Morales,2026-06-27,2026-06-30,16,1574881.31,No,
+VJ-00039,QAX418,Eléctrico,Guerrero-Mena,2026-06-26,2026-07-01,21,2006882.16,Sí,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00046,YPQ875,Sencillo,González-Muñoz,2026-06-25,,10,953137.73,Sí,Retraso menor por tráfico en la vía principal.
+VJ-00033,GFB628,Eléctrico,García and Sons,2026-06-24,,36,4010137.17,No,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00006,YFM411,Turbo,Guerrero-Mena,2026-06-21,2026-06-27,20,3640447.52,Sí,
+VJ-00036,PRR130,Turbo,González-Muñoz,2026-06-14,,33,7657253.84,No,Entrega sin novedad.
+VJ-00043,FDB838,Eléctrico,Uribe and Sons,2026-06-07,2026-06-07,5,431277.44,Sí,Cliente solicitó reprogramación de una entrega.
+VJ-00025,XYA376,Sencillo,Ortega-Torres,2026-06-07,2026-06-12,17,2162265.58,No,"Vehículo presentó novedad mecánica leve, resuelta en sitio."
+VJ-00051,ZPE595,Eléctrico,Palacio PLC,2026-06-04,2026-06-04,18,1935754.39,Sí,Pendiente confirmación de recibido por parte del cliente.
+VJ-00035,KSK754,Sencillo,Muñoz and Sons,2026-06-03,2026-06-07,6,601686.44,Sí,Entrega sin novedad.
+VJ-00065,RGV062,Sencillo,"Ríos, Sánchez and Forero",2026-05-31,2026-05-31,38,4036241.08,Sí,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00057,ZCF934,Turbo,Uribe and Sons,2026-05-29,,14,3697383.7,Sí,
+VJ-00055,VEX253,Turbo,"Ríos, Sánchez and Forero",2026-05-26,,8,1653003.34,Sí,"Ruta optimizada, entregas completadas antes de lo previsto."
+VJ-00011,VXN455,Turbo,"Hernández, López and Hernández",2026-05-26,2026-05-28,32,7174134.66,No,

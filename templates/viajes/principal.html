@@ -1,0 +1,111 @@
+{% extends "viajes/base.html" %}
+{% load static %}
+{% block titulo %}Registros de Viajes · Gestión de Viajes{% endblock %}
+
+{% block contenido %}
+<div class="encabezado-vista">
+    <div>
+        <h1>Registros de viajes</h1>
+        <p class="texto-muted">Consulta, filtra, valida y exporta los registros de vehículos.</p>
+    </div>
+    <div class="encabezado-vista__acciones">
+        <a href="{% url 'exportar_csv' %}" id="enlace-export-csv" class="boton boton--secundario">⬇ Exportar CSV</a>
+        <a href="{% url 'exportar_excel' %}" id="enlace-export-excel" class="boton boton--secundario">⬇ Exportar Excel</a>
+    </div>
+</div>
+
+<form id="form-filtros" class="tarjeta panel-filtros" autocomplete="off">
+    <div class="panel-filtros__fila">
+        <div class="campo">
+            <label for="id_placa">Placa</label>
+            <input type="text" id="id_placa" name="placa" placeholder="Ej: ABC123" value="{{ filtros_actuales.placa }}">
+        </div>
+        <div class="campo">
+            <label for="id_fecha_desde">Fecha inicio desde</label>
+            <input type="date" id="id_fecha_desde" name="fecha_desde" value="{{ filtros_actuales.fecha_desde }}">
+        </div>
+        <div class="campo">
+            <label for="id_fecha_hasta">Fecha inicio hasta</label>
+            <input type="date" id="id_fecha_hasta" name="fecha_hasta" value="{{ filtros_actuales.fecha_hasta }}">
+        </div>
+        <div class="campo">
+            <label for="id_validado">Estado</label>
+            <select id="id_validado" name="validado">
+                <option value="">Todos</option>
+                <option value="1" {% if filtros_actuales.validado == "1" %}selected{% endif %}>Validado</option>
+                <option value="0" {% if filtros_actuales.validado == "0" %}selected{% endif %}>Pendiente</option>
+            </select>
+        </div>
+        <div class="campo">
+            <label for="id_tipo_vehiculo">Tipo de vehículo</label>
+            <select id="id_tipo_vehiculo" name="tipo_vehiculo">
+                <option value="">Todos</option>
+                {% for valor, etiqueta in tipos_vehiculo %}
+                <option value="{{ valor }}" {% if filtros_actuales.tipo_vehiculo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <details class="busqueda-avanzada" {% if filtros_actuales.cliente or filtros_actuales.facturacion_min or filtros_actuales.facturacion_max or filtros_actuales.entregas_min or filtros_actuales.entregas_max %}open{% endif %}>
+        <summary>Búsqueda avanzada</summary>
+        <div class="panel-filtros__fila">
+            <div class="campo">
+                <label for="id_cliente">Cliente</label>
+                <input type="text" id="id_cliente" name="cliente" placeholder="Nombre del cliente" value="{{ filtros_actuales.cliente }}">
+            </div>
+            <div class="campo">
+                <label for="id_facturacion_min">Facturación mín.</label>
+                <input type="number" id="id_facturacion_min" name="facturacion_min" min="0" step="1000" value="{{ filtros_actuales.facturacion_min }}">
+            </div>
+            <div class="campo">
+                <label for="id_facturacion_max">Facturación máx.</label>
+                <input type="number" id="id_facturacion_max" name="facturacion_max" min="0" step="1000" value="{{ filtros_actuales.facturacion_max }}">
+            </div>
+            <div class="campo">
+                <label for="id_entregas_min">Entregas mín.</label>
+                <input type="number" id="id_entregas_min" name="entregas_min" min="0" value="{{ filtros_actuales.entregas_min }}">
+            </div>
+            <div class="campo">
+                <label for="id_entregas_max">Entregas máx.</label>
+                <input type="number" id="id_entregas_max" name="entregas_max" min="0" value="{{ filtros_actuales.entregas_max }}">
+            </div>
+        </div>
+    </details>
+
+    <div class="panel-filtros__pie">
+        <span id="texto-resultados" class="texto-muted">{{ total_filtrado }} registro(s) encontrado(s)</span>
+        <button type="button" id="btn-limpiar-filtros" class="boton boton--fantasma">Limpiar filtros</button>
+    </div>
+</form>
+
+<div class="tarjeta tabla-wrapper">
+    <div id="indicador-carga" class="indicador-carga oculto">Actualizando…</div>
+    <table class="tabla-datos">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Placa</th>
+                <th>Tipo</th>
+                <th>Cliente</th>
+                <th>Fecha inicio</th>
+                <th>Fecha fin</th>
+                <th>Entregas</th>
+                <th>Facturación</th>
+                <th>Registrado por</th>
+                <th>Validación</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpo-tabla">
+            {% include "viajes/_tabla_filas.html" %}
+        </tbody>
+    </table>
+    <div id="contenedor-paginacion">
+        {% include "viajes/_paginacion.html" %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'viajes/js/main.js' %}"></script>
+{% endblock %}

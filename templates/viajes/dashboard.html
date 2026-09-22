@@ -1,0 +1,110 @@
+{% extends "viajes/base.html" %}
+{% load static %}
+{% block titulo %}Dashboard · Gestión de Viajes{% endblock %}
+
+{% block contenido %}
+<div class="encabezado-vista">
+    <div>
+        <h1>Dashboard operativo</h1>
+        <p class="texto-muted">Indicadores y tendencias de los registros de viajes.</p>
+    </div>
+</div>
+
+<form id="form-filtros-dash" class="tarjeta panel-filtros" autocomplete="off">
+    <div class="panel-filtros__fila">
+        <div class="campo">
+            <label for="id_fecha_desde">Fecha inicio desde</label>
+            <input type="date" id="id_fecha_desde" name="fecha_desde" value="{{ filtros_actuales.fecha_desde }}">
+        </div>
+        <div class="campo">
+            <label for="id_fecha_hasta">Fecha inicio hasta</label>
+            <input type="date" id="id_fecha_hasta" name="fecha_hasta" value="{{ filtros_actuales.fecha_hasta }}">
+        </div>
+        <div class="campo">
+            <label for="id_validado">Estado</label>
+            <select id="id_validado" name="validado">
+                <option value="">Todos</option>
+                <option value="1" {% if filtros_actuales.validado == "1" %}selected{% endif %}>Validado</option>
+                <option value="0" {% if filtros_actuales.validado == "0" %}selected{% endif %}>Pendiente</option>
+            </select>
+        </div>
+        <div class="campo">
+            <label for="id_tipo_vehiculo">Tipo de vehículo</label>
+            <select id="id_tipo_vehiculo" name="tipo_vehiculo">
+                <option value="">Todos</option>
+                {% for valor, etiqueta in tipos_vehiculo %}
+                <option value="{{ valor }}" {% if filtros_actuales.tipo_vehiculo == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="panel-filtros__pie">
+        <span class="texto-muted">Los indicadores y gráficos se actualizan automáticamente al cambiar un filtro.</span>
+        <button type="button" id="btn-limpiar-filtros-dash" class="boton boton--fantasma">Limpiar filtros</button>
+    </div>
+</form>
+
+<div class="rejilla-kpis" id="rejilla-kpis">
+    <div class="tarjeta-kpi">
+        <div class="tarjeta-kpi__etiqueta">Registros</div>
+        <div class="tarjeta-kpi__valor" id="kpi-registros">{{ indicadores.total_registros }}</div>
+    </div>
+    <div class="tarjeta-kpi tarjeta-kpi--verde">
+        <div class="tarjeta-kpi__etiqueta">Total entregas</div>
+        <div class="tarjeta-kpi__valor" id="kpi-entregas">{{ indicadores.total_entregas }}</div>
+    </div>
+    <div class="tarjeta-kpi tarjeta-kpi--violeta">
+        <div class="tarjeta-kpi__etiqueta">Facturación total</div>
+        <div class="tarjeta-kpi__valor" id="kpi-facturacion">${{ indicadores.total_facturacion|floatformat:0 }}</div>
+    </div>
+    <div class="tarjeta-kpi tarjeta-kpi--ambar">
+        <div class="tarjeta-kpi__etiqueta">% Validados</div>
+        <div class="tarjeta-kpi__valor" id="kpi-porcentaje">{{ indicadores.porcentaje_validados }}%</div>
+    </div>
+    <div class="tarjeta-kpi">
+        <div class="tarjeta-kpi__etiqueta">Facturación / entrega</div>
+        <div class="tarjeta-kpi__valor" id="kpi-eficiencia">${{ indicadores.facturacion_por_entrega|floatformat:0 }}</div>
+    </div>
+</div>
+
+<div class="rejilla-graficos">
+    <div class="panel-grafico">
+        <h2>Vehículos por día</h2>
+        <span class="panel-grafico__subtitulo">Cantidad de registros según fecha de inicio</span>
+        <div class="panel-grafico__lienzo">
+            <canvas id="grafico-por-dia"></canvas>
+        </div>
+    </div>
+    <div class="panel-grafico">
+        <h2>Distribución por tipo</h2>
+        <span class="panel-grafico__subtitulo">Proporción de registros</span>
+        <div class="panel-grafico__lienzo panel-grafico__lienzo--chico">
+            <canvas id="grafico-distribucion-tipo"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="rejilla-graficos rejilla-graficos--dos">
+    <div class="panel-grafico">
+        <h2>Facturación por tipo de vehículo</h2>
+        <span class="panel-grafico__subtitulo">Suma de facturación agrupada por tipo</span>
+        <div class="panel-grafico__lienzo panel-grafico__lienzo--chico">
+            <canvas id="grafico-facturacion-tipo"></canvas>
+        </div>
+    </div>
+    <div class="panel-grafico">
+        <h2>Resumen</h2>
+        <span class="panel-grafico__subtitulo">Lectura rápida de los indicadores filtrados</span>
+        <table class="tabla-datos" id="tabla-resumen-tipo" style="font-size:0.85rem;">
+            <thead><tr><th>Tipo</th><th>Registros</th><th>Facturación</th></tr></thead>
+            <tbody id="cuerpo-resumen-tipo"></tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'viajes/js/vendor/chart.umd.js' %}"></script>
+<script>window.DATOS_DASHBOARD_INICIALES = {{ datos_json|safe }};</script>
+<script src="{% static 'viajes/js/dashboard.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "viajes/base.html" %}
+{% load static %}
+{% block titulo %}Iniciar sesión · Gestión de Viajes{% endblock %}
+
+{% block contenido %}
+<div class="pantalla-login">
+    <div class="tarjeta-login">
+        <div class="tarjeta-login__marca">
+            <span class="marca__icono">🚚</span>
+            <h1>Gestión de Viajes</h1>
+            <p class="texto-muted">Ingresa con tu usuario para continuar</p>
+        </div>
+
+        {% if form.errors %}
+        <div class="mensaje mensaje--error">
+            Usuario o contraseña incorrectos. Intenta nuevamente.
+        </div>
+        {% endif %}
+
+        <form method="post" class="formulario-login" novalidate>
+            {% csrf_token %}
+            <label for="{{ form.username.id_for_label }}">Usuario</label>
+            {{ form.username }}
+
+            <label for="{{ form.password.id_for_label }}">Contraseña</label>
+            {{ form.password }}
+
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="boton boton--primario boton--ancho-completo">Iniciar sesión</button>
+        </form>
+
+        <p class="texto-muted texto-pequeno tarjeta-login__ayuda">
+            Credenciales de ejemplo: <code>admin / admin12345</code>
+        </p>
+    </div>
+</div>
+{% endblock %}

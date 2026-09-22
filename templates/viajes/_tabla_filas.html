@@ -1,0 +1,33 @@
+{% for vehiculo in pagina %}
+<tr class="fila-vehiculo {% if vehiculo.validado %}fila-vehiculo--validado{% else %}fila-vehiculo--pendiente{% endif %}" data-id="{{ vehiculo.id }}">
+    <td class="celda-mono">{{ vehiculo.codigo }}</td>
+    <td class="celda-mono">{{ vehiculo.placa }}</td>
+    <td>
+        <span class="etiqueta-tipo etiqueta-tipo--{{ vehiculo.tipo_vehiculo|slugify }}">{{ vehiculo.tipo_vehiculo }}</span>
+    </td>
+    <td>{{ vehiculo.cliente }}</td>
+    <td>{{ vehiculo.fecha_inicio|date:"d/m/Y" }}</td>
+    <td>{{ vehiculo.fecha_fin|date:"d/m/Y"|default:"—" }}</td>
+    <td class="celda-numero">{{ vehiculo.numero_entregas }}</td>
+    <td class="celda-numero celda-facturacion">${{ vehiculo.facturacion|floatformat:0 }}</td>
+    <td class="celda-registrador texto-muted">{{ vehiculo.registrado_por.username|default:"—" }}</td>
+    <td class="celda-validacion">
+        <label class="interruptor-validacion" title="{% if not es_staff %}Solo un usuario staff puede validar{% endif %}">
+            <input
+                type="checkbox"
+                class="chk-validar"
+                data-id="{{ vehiculo.id }}"
+                {% if vehiculo.validado %}checked{% endif %}
+                {% if not es_staff %}disabled{% endif %}
+            >
+            <span class="pastilla-estado {% if vehiculo.validado %}pastilla-estado--ok{% else %}pastilla-estado--pendiente{% endif %}">
+                {% if vehiculo.validado %}✓ Validado{% else %}⏳ Pendiente{% endif %}
+            </span>
+        </label>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="10" class="fila-vacia">No se encontraron registros con los filtros aplicados.</td>
+</tr>
+{% endfor %}
