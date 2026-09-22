@@ -21,6 +21,7 @@ from django.utils import timezone
 
 from faker import Faker
 
+from viajes.ciudades import CIUDADES, NOMBRES_CIUDADES
 from viajes.models import HistorialValidacion, TipoVehiculo, Vehiculo
 
 fake = Faker("es_CO")
@@ -113,6 +114,12 @@ class Command(BaseCommand):
             validado = random.random() < 0.55
 
             codigo = f"VJ-{ultimo_codigo + i + 1:05d}"
+            ciudad_origen, ciudad_destino = random.sample(NOMBRES_CIUDADES, 2)
+            coords_o = CIUDADES[ciudad_origen]
+            coords_d = CIUDADES[ciudad_destino]
+            # Ligera variación para que no todos los puntos caigan exactamente
+            # en el centro de la ciudad (simula bodegas/puntos de entrega).
+            ruido = lambda: random.uniform(-0.04, 0.04)
             vehiculo = Vehiculo(
                 codigo=codigo,
                 placa=generar_placa(),
@@ -125,6 +132,12 @@ class Command(BaseCommand):
                 cliente=random.choice(clientes),
                 validado=validado,
                 registrado_por=random.choice(usuarios),
+                origen=ciudad_origen,
+                destino=ciudad_destino,
+                origen_lat=coords_o["lat"] + ruido(),
+                origen_lng=coords_o["lng"] + ruido(),
+                destino_lat=coords_d["lat"] + ruido(),
+                destino_lng=coords_d["lng"] + ruido(),
             )
             nuevos.append(vehiculo)
 

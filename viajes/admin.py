@@ -17,14 +17,16 @@ class VehiculoAdmin(admin.ModelAdmin):
         "placa",
         "tipo_vehiculo",
         "cliente",
+        "origen",
+        "destino",
         "fecha_inicio",
         "fecha_fin",
         "numero_entregas",
         "facturacion",
         "validado",
     )
-    list_filter = ("tipo_vehiculo", "validado", "fecha_inicio")
-    search_fields = ("codigo", "placa", "cliente")
+    list_filter = ("tipo_vehiculo", "validado", "fecha_inicio", "origen", "destino")
+    search_fields = ("codigo", "placa", "cliente", "origen", "destino")
     date_hierarchy = "fecha_inicio"
     inlines = [HistorialValidacionInline]
     autocomplete_fields = ()

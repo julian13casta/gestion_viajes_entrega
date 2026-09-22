@@ -88,12 +88,14 @@
                 <th>Placa</th>
                 <th>Tipo</th>
                 <th>Cliente</th>
+                <th>Trayecto</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>
                 <th>Entregas</th>
                 <th>Facturación</th>
                 <th>Registrado por</th>
                 <th>Validación</th>
+                <th>Mapa</th>
             </tr>
         </thead>
         <tbody id="cuerpo-tabla">
@@ -104,8 +106,39 @@
         {% include "viajes/_paginacion.html" %}
     </div>
 </div>
+
+{# Modal del mapa de ruta #}
+<div id="modal-ruta" class="modal-ruta" hidden aria-hidden="true">
+    <div class="modal-ruta__fondo" data-cerrar-modal></div>
+    <div class="modal-ruta__panel" role="dialog" aria-modal="true" aria-labelledby="modal-ruta-titulo">
+        <header class="modal-ruta__cabecera">
+            <div>
+                <h2 id="modal-ruta-titulo">Ruta del viaje</h2>
+                <p id="modal-ruta-subtitulo" class="texto-muted"></p>
+            </div>
+            <button type="button" class="boton boton--fantasma" data-cerrar-modal aria-label="Cerrar">✕</button>
+        </header>
+        <div class="modal-ruta__meta">
+            <span id="modal-ruta-origen"></span>
+            <span class="modal-ruta__flecha" aria-hidden="true">→</span>
+            <span id="modal-ruta-destino"></span>
+            <span id="modal-ruta-distancia" class="modal-ruta__distancia"></span>
+        </div>
+        <div id="mapa-ruta" class="modal-ruta__mapa" role="img" aria-label="Mapa del recorrido"></div>
+        <footer class="modal-ruta__pie">
+            <p class="texto-muted texto-pequeno">El camión anima el recorrido realizado hacia el destino.</p>
+            <button type="button" class="boton boton--primario" id="btn-reproducir-ruta">▶ Reproducir recorrido</button>
+        </footer>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{% static 'viajes/js/mapa.js' %}"></script>
 <script src="{% static 'viajes/js/main.js' %}"></script>
 {% endblock %}

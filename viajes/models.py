@@ -52,6 +52,14 @@ class Vehiculo(models.Model):
     cliente = models.CharField("Cliente", max_length=100)
     validado = models.BooleanField("Validado", default=False, db_index=True)
 
+    # Trayecto geográfico (origen → destino) para visualizar la ruta en el mapa.
+    origen = models.CharField("Origen", max_length=80, blank=True, default="")
+    destino = models.CharField("Destino", max_length=80, blank=True, default="")
+    origen_lat = models.FloatField("Latitud origen", null=True, blank=True)
+    origen_lng = models.FloatField("Longitud origen", null=True, blank=True)
+    destino_lat = models.FloatField("Latitud destino", null=True, blank=True)
+    destino_lng = models.FloatField("Longitud destino", null=True, blank=True)
+
     # Campos de auditoría / trazabilidad.
     registrado_por = models.ForeignKey(
         settings.AUTH_USER_MODEL,

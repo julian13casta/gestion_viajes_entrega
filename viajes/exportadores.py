@@ -16,6 +16,8 @@ COLUMNAS = [
     ("placa", "Placa"),
     ("tipo_vehiculo", "Tipo de vehículo"),
     ("cliente", "Cliente"),
+    ("origen", "Origen"),
+    ("destino", "Destino"),
     ("fecha_inicio", "Fecha inicio"),
     ("fecha_fin", "Fecha fin"),
     ("numero_entregas", "N° entregas"),
@@ -36,6 +38,8 @@ def _fila_de(vehiculo) -> list:
         vehiculo.placa,
         vehiculo.tipo_vehiculo,
         vehiculo.cliente,
+        vehiculo.origen,
+        vehiculo.destino,
         vehiculo.fecha_inicio.strftime("%Y-%m-%d"),
         vehiculo.fecha_fin.strftime("%Y-%m-%d") if vehiculo.fecha_fin else "",
         vehiculo.numero_entregas,
@@ -92,7 +96,7 @@ def exportar_excel(queryset) -> HttpResponse:
             ws.cell(row=fila_idx, column=col_idx).fill = relleno
         fila_idx += 1
 
-    anchos = [12, 10, 16, 26, 13, 13, 11, 14, 10, 40]
+    anchos = [12, 10, 16, 26, 14, 14, 13, 13, 11, 14, 10, 40]
     for col_idx, ancho in enumerate(anchos, start=1):
         ws.column_dimensions[get_column_letter(col_idx)].width = ancho
 

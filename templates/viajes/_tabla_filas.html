@@ -6,6 +6,13 @@
         <span class="etiqueta-tipo etiqueta-tipo--{{ vehiculo.tipo_vehiculo|slugify }}">{{ vehiculo.tipo_vehiculo }}</span>
     </td>
     <td>{{ vehiculo.cliente }}</td>
+    <td class="celda-ruta">
+        {% if vehiculo.origen and vehiculo.destino %}
+        <span class="texto-trayecto" title="{{ vehiculo.origen }} → {{ vehiculo.destino }}">{{ vehiculo.origen }} → {{ vehiculo.destino }}</span>
+        {% else %}
+        <span class="texto-muted">—</span>
+        {% endif %}
+    </td>
     <td>{{ vehiculo.fecha_inicio|date:"d/m/Y" }}</td>
     <td>{{ vehiculo.fecha_fin|date:"d/m/Y"|default:"—" }}</td>
     <td class="celda-numero">{{ vehiculo.numero_entregas }}</td>
@@ -25,9 +32,30 @@
             </span>
         </label>
     </td>
+    <td class="celda-mapa">
+        {% if vehiculo.origen_lat and vehiculo.destino_lat %}
+        <button
+            type="button"
+            class="boton boton--mapa btn-ver-ruta"
+            title="Ver ruta en el mapa"
+            data-codigo="{{ vehiculo.codigo }}"
+            data-placa="{{ vehiculo.placa }}"
+            data-origen="{{ vehiculo.origen }}"
+            data-destino="{{ vehiculo.destino }}"
+            data-olat="{{ vehiculo.origen_lat }}"
+            data-olng="{{ vehiculo.origen_lng }}"
+            data-dlat="{{ vehiculo.destino_lat }}"
+            data-dlng="{{ vehiculo.destino_lng }}"
+        >
+            🗺 Ruta
+        </button>
+        {% else %}
+        <span class="texto-muted">—</span>
+        {% endif %}
+    </td>
 </tr>
 {% empty %}
 <tr>
-    <td colspan="10" class="fila-vacia">No se encontraron registros con los filtros aplicados.</td>
+    <td colspan="12" class="fila-vacia">No se encontraron registros con los filtros aplicados.</td>
 </tr>
 {% endfor %}
